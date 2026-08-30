@@ -1,0 +1,20 @@
+Helix — DualSense / DualSense Edge companion
+===============================================
+
+1) Install ViGEmBus (free) from:
+   https://github.com/nefarius/ViGEmBus/releases
+   Needed for Xbox mode. Helix still runs DualSense mode if ViGEmBus is missing.
+
+2) Run Helix.exe from the unzipped folder.
+
+3) Plug in the DualSense Edge over USB-C.
+   Adaptive triggers require USB. Bluetooth is rumble-only.
+
+4) Pick Xbox for RDR2 (Rockstar Games Launcher).
+   DualSense mode is native HID — no virtual pad; games that support
+   DualSense see the real controller.
+
+No Steam. No DS4Windows. No paid overlay.
+
+Close the window to keep Helix in the tray. Open the ... menu to quit,
+start with Windows, or open Helix.log (next to Helix.exe).
