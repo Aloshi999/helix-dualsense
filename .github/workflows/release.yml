@@ -1,0 +1,44 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  windows:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Test
+        run: dotnet test Helix.sln -c Release
+
+      - name: Publish win-x64
+        run: dotnet publish src/Helix/Helix.csproj -c Release -r win-x64 --self-contained -o dist/win-x64
+
+      - name: Zip
+        run: |
+          cp INSTALL.txt dist/win-x64/INSTALL.txt
+          cd dist/win-x64
+          zip -r ../../Helix-win-x64.zip .
+
+      - name: Attach to GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: Helix-win-x64.zip
+          name: Helix ${{ github.ref_name }}
+          body: |
+            Helix DualSense companion.
+
+            1. Install ViGEmBus (free): https://github.com/nefarius/ViGEmBus/releases
+            2. Download `Helix-win-x64.zip`, unzip, run `Helix.exe`
+            3. Plug in DualSense Edge over USB-C
+            4. Pick **Xbox** for RDR2 (Rockstar Games Launcher). DualSense mode is native HID — no virtual pad.

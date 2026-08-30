@@ -1,0 +1,176 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Helix.ViewModels"
+        xmlns:views="using:Helix.Views"
+        x:Class="Helix.Views.MainWindow"
+        x:DataType="vm:MainViewModel"
+        Title="Helix"
+        Width="1100" Height="720"
+        MinWidth="920" MinHeight="600"
+        WindowStartupLocation="CenterScreen"
+        ExtendClientAreaToDecorationsHint="True"
+        ExtendClientAreaChromeHints="PreferSystemChrome"
+        ExtendClientAreaTitleBarHeightHint="40"
+        TransparencyLevelHint="Mica"
+        Background="#080A0C"
+        Icon="/Assets/helix.ico">
+  <Window.Styles>
+    <Style Selector="ComboBox.slim">
+      <Setter Property="MinHeight" Value="30" />
+      <Setter Property="Height" Value="32" />
+    </Style>
+  </Window.Styles>
+
+  <Grid RowDefinitions="Auto,*">
+    <Grid Margin="20,12,20,0" ColumnDefinitions="Auto,*,Auto,Auto">
+      <TextBlock Classes="wordmark" Text="Helix" VerticalAlignment="Center" />
+      <Border Grid.Column="1" Classes="chip" HorizontalAlignment="Left" Margin="16,0,0,0">
+        <StackPanel Orientation="Horizontal" Spacing="8">
+          <Ellipse Width="7" Height="7" Fill="{Binding ConnectionDot}" VerticalAlignment="Center" />
+          <TextBlock Text="{Binding ConnectionLabel}" VerticalAlignment="Center" />
+        </StackPanel>
+      </Border>
+      <Border Grid.Column="2" Background="#0E1115" BorderBrush="#24303A" BorderThickness="1"
+              CornerRadius="9" Padding="3" VerticalAlignment="Center">
+        <StackPanel Orientation="Horizontal" Spacing="2">
+          <Button Classes="seg" Classes.on="{Binding IsDualSenseMode}" Content="DualSense"
+                  Command="{Binding SetModeCommand}" CommandParameter="DualSense" />
+          <Button Classes="seg" Classes.on="{Binding IsXboxMode}" Content="Xbox"
+                  Command="{Binding SetModeCommand}" CommandParameter="Xbox" />
+        </StackPanel>
+      </Border>
+      <Button Grid.Column="3" Classes="ghost" Width="36" Height="32" Margin="10,0,0,0"
+              Content="···" Command="{Binding ToggleMenuCommand}" />
+    </Grid>
+
+    <Grid Grid.Row="1" ColumnDefinitions="*,360" Margin="8,4,20,20">
+      <views:ControllerSilhouette Pad="{Binding Pad}"
+                                  Lightbar="{Binding Lightbar}"
+                                  LightbarBrightness="{Binding LightbarBrightness}"
+                                  MinHeight="420" />
+      <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto">
+        <StackPanel Spacing="16">
+          <Border Classes="banner" IsVisible="{Binding ShowVigemBanner}">
+            <StackPanel Spacing="4">
+              <TextBlock Text="Install ViGEmBus (free) to use Xbox mode" TextWrapping="Wrap" />
+              <Button Classes="link" Content="github.com/nefarius/ViGEmBus/releases"
+                      Command="{Binding OpenVigemCommand}" />
+            </StackPanel>
+          </Border>
+
+          <StackPanel Spacing="6">
+            <TextBlock Classes="caption" Text="Left trigger" />
+            <ComboBox Classes="slim" ItemsSource="{Binding TriggerPresets}" SelectedItem="{Binding LeftPreset}" />
+            <Slider Minimum="1" Maximum="8" TickFrequency="1" IsSnapToTickEnabled="True"
+                    Value="{Binding LeftIntensity}" />
+            <Grid ColumnDefinitions="*,*,*" IsVisible="{Binding LeftCustomVisible}" ColumnSpacing="8">
+              <StackPanel>
+                <TextBlock Classes="caption" Text="Start" />
+                <Slider Minimum="0" Maximum="8" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding LeftCustomStart}" />
+              </StackPanel>
+              <StackPanel Grid.Column="1">
+                <TextBlock Classes="caption" Text="End" />
+                <Slider Minimum="0" Maximum="8" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding LeftCustomEnd}" />
+              </StackPanel>
+              <StackPanel Grid.Column="2">
+                <TextBlock Classes="caption" Text="Force" />
+                <Slider Minimum="0" Maximum="8" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding LeftCustomForce}" />
+              </StackPanel>
+            </Grid>
+          </StackPanel>
+
+          <StackPanel Spacing="6">
+            <TextBlock Classes="caption" Text="Right trigger" />
+            <ComboBox Classes="slim" ItemsSource="{Binding TriggerPresets}" SelectedItem="{Binding RightPreset}" />
+            <Slider Minimum="1" Maximum="8" TickFrequency="1" IsSnapToTickEnabled="True"
+                    Value="{Binding RightIntensity}" />
+            <Grid ColumnDefinitions="*,*,*" IsVisible="{Binding RightCustomVisible}" ColumnSpacing="8">
+              <StackPanel>
+                <TextBlock Classes="caption" Text="Start" />
+                <Slider Minimum="0" Maximum="8" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding RightCustomStart}" />
+              </StackPanel>
+              <StackPanel Grid.Column="1">
+                <TextBlock Classes="caption" Text="End" />
+                <Slider Minimum="0" Maximum="8" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding RightCustomEnd}" />
+              </StackPanel>
+              <StackPanel Grid.Column="2">
+                <TextBlock Classes="caption" Text="Force" />
+                <Slider Minimum="0" Maximum="8" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding RightCustomForce}" />
+              </StackPanel>
+            </Grid>
+          </StackPanel>
+
+          <StackPanel Spacing="6">
+            <TextBlock Classes="caption" Text="Lightbar" />
+            <StackPanel Orientation="Horizontal" Spacing="10">
+              <ColorPicker Width="28" Height="28" Color="{Binding Lightbar}" IsColorPaletteVisible="False"
+                           IsAlphaEnabled="False" IsAlphaVisible="False" />
+              <Slider Width="260" Minimum="0" Maximum="1" Value="{Binding LightbarBrightness}" />
+            </StackPanel>
+          </StackPanel>
+
+          <StackPanel Spacing="6">
+            <TextBlock Classes="caption" Text="Haptics" />
+            <Slider Minimum="0" Maximum="100" Value="{Binding HapticsStrength}" />
+            <CheckBox Content="Audio to haptics" IsChecked="{Binding AudioToHaptics}" />
+          </StackPanel>
+
+          <StackPanel Spacing="6">
+            <TextBlock Classes="caption" Text="Edge paddles" />
+            <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto" RowSpacing="6" ColumnSpacing="10">
+              <TextBlock Text="Left" VerticalAlignment="Center" />
+              <ComboBox Grid.Column="1" Classes="slim" ItemsSource="{Binding PaddleTargets}" SelectedItem="{Binding LeftPaddle}" />
+              <TextBlock Grid.Row="1" Text="Right" VerticalAlignment="Center" />
+              <ComboBox Grid.Row="1" Grid.Column="1" Classes="slim" ItemsSource="{Binding PaddleTargets}" SelectedItem="{Binding RightPaddle}" />
+            </Grid>
+          </StackPanel>
+
+          <StackPanel Spacing="6">
+            <TextBlock Classes="caption" Text="Touchpad" />
+            <StackPanel Orientation="Horizontal" Spacing="4">
+              <Button Classes="seg" Classes.on="{Binding IsTouchOff}" Content="Off"
+                      Command="{Binding SetTouchpadCommand}" CommandParameter="Off" />
+              <Button Classes="seg" Classes.on="{Binding IsTouchClick}" Content="Click only"
+                      Command="{Binding SetTouchpadCommand}" CommandParameter="ClickOnly" />
+              <Button Classes="seg" Classes.on="{Binding IsTouchMouse}" Content="Mouse"
+                      Command="{Binding SetTouchpadCommand}" CommandParameter="Mouse" />
+            </StackPanel>
+          </StackPanel>
+
+          <StackPanel Spacing="6">
+            <TextBlock Classes="caption" Text="Gyro" />
+            <StackPanel Orientation="Horizontal" Spacing="4">
+              <Button Classes="seg" Classes.on="{Binding IsGyroOff}" Content="Off"
+                      Command="{Binding SetGyroCommand}" CommandParameter="Off" />
+              <Button Classes="seg" Classes.on="{Binding IsGyroMouse}" Content="Mouse"
+                      Command="{Binding SetGyroCommand}" CommandParameter="Mouse" />
+              <Button Classes="seg" Classes.on="{Binding IsGyroStick}" Content="Right stick"
+                      Command="{Binding SetGyroCommand}" CommandParameter="RightStick" />
+            </StackPanel>
+            <Slider Minimum="0.15" Maximum="4" Value="{Binding GyroSensitivity}"
+                    IsVisible="{Binding GyroSensitivityVisible}" />
+          </StackPanel>
+        </StackPanel>
+      </ScrollViewer>
+    </Grid>
+
+    <Border x:Name="Overflow" Grid.Row="0" Grid.RowSpan="2"
+            HorizontalAlignment="Right" VerticalAlignment="Top"
+            Margin="0,48,20,0" Width="240"
+            Background="#12171C" BorderBrush="#24303A" BorderThickness="1"
+            CornerRadius="8" Padding="14,12" BoxShadow="0 12 32 0 #40000000"
+            IsVisible="{Binding MenuOpen}" ZIndex="20">
+      <StackPanel Spacing="12">
+        <CheckBox Content="Start with Windows" IsChecked="{Binding StartWithWindows}" />
+        <StackPanel Spacing="4">
+          <TextBlock Classes="caption" Text="Stick deadzone" />
+          <Slider Minimum="0" Maximum="0.4" Value="{Binding StickDeadzone}" />
+        </StackPanel>
+        <Button Classes="ghost" Content="Open Helix.log" HorizontalAlignment="Stretch"
+                HorizontalContentAlignment="Left" Command="{Binding OpenLogCommand}" />
+        <Button Classes="ghost" Content="Quit Helix" HorizontalAlignment="Stretch"
+                HorizontalContentAlignment="Left" Click="OnQuit" />
+      </StackPanel>
+    </Border>
+  </Grid>
+</Window>

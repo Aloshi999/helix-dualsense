@@ -1,0 +1,127 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="Helix.App"
+             Name="Helix"
+             RequestedThemeVariant="Dark">
+  <Application.Resources>
+    <Color x:Key="SystemAccentColor">#3D9AD1</Color>
+    <Color x:Key="SystemAccentColorDark1">#2E6B9E</Color>
+    <Color x:Key="SystemAccentColorDark2">#24567E</Color>
+    <Color x:Key="SystemAccentColorLight1">#5BB0DC</Color>
+    <Color x:Key="SystemAccentColorLight2">#8CC8E8</Color>
+    <SolidColorBrush x:Key="HelixBg">#080A0C</SolidColorBrush>
+    <SolidColorBrush x:Key="HelixPanel">#0E1115</SolidColorBrush>
+    <SolidColorBrush x:Key="HelixElevated">#14181D</SolidColorBrush>
+    <SolidColorBrush x:Key="HelixStroke">#24303A</SolidColorBrush>
+    <SolidColorBrush x:Key="HelixText">#E7EEF4</SolidColorBrush>
+    <SolidColorBrush x:Key="HelixMuted">#6D7B88</SolidColorBrush>
+    <SolidColorBrush x:Key="HelixAccent">#3D9AD1</SolidColorBrush>
+    <SolidColorBrush x:Key="HelixAccentDim">#2E6B9E</SolidColorBrush>
+    <FontFamily x:Key="Inter">Inter, $Default</FontFamily>
+  </Application.Resources>
+
+  <TrayIcon.Icons>
+    <TrayIcons>
+      <TrayIcon Icon="/Assets/helix.ico" ToolTipText="Helix" Clicked="OnTrayClicked">
+        <TrayIcon.Menu>
+          <NativeMenu>
+            <NativeMenuItem Header="Open Helix" Click="OnOpenClicked" />
+            <NativeMenuItem Header="Quit Helix" Click="OnQuitClicked" />
+          </NativeMenu>
+        </TrayIcon.Menu>
+      </TrayIcon>
+    </TrayIcons>
+  </TrayIcon.Icons>
+
+  <Application.Styles>
+    <FluentTheme />
+    <Style Selector="Window">
+      <Setter Property="FontFamily" Value="{StaticResource Inter}" />
+      <Setter Property="FontSize" Value="14" />
+      <Setter Property="Foreground" Value="{StaticResource HelixText}" />
+      <Setter Property="Background" Value="{StaticResource HelixBg}" />
+    </Style>
+    <Style Selector="TextBlock.wordmark">
+      <Setter Property="FontSize" Value="20" />
+      <Setter Property="FontWeight" Value="SemiBold" />
+      <Setter Property="LetterSpacing" Value="0.8" />
+      <Setter Property="Foreground" Value="{StaticResource HelixText}" />
+    </Style>
+    <Style Selector="TextBlock.caption">
+      <Setter Property="FontSize" Value="12" />
+      <Setter Property="Foreground" Value="{StaticResource HelixMuted}" />
+      <Setter Property="LetterSpacing" Value="0.4" />
+    </Style>
+    <Style Selector="TextBlock.hint">
+      <Setter Property="FontSize" Value="14" />
+      <Setter Property="Foreground" Value="{StaticResource HelixMuted}" />
+    </Style>
+    <Style Selector="Border.chip">
+      <Setter Property="Background" Value="#12181E" />
+      <Setter Property="BorderBrush" Value="{StaticResource HelixStroke}" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="CornerRadius" Value="8" />
+      <Setter Property="Padding" Value="10,5" />
+    </Style>
+    <Style Selector="Border.banner">
+      <Setter Property="Background" Value="#1A1610" />
+      <Setter Property="BorderBrush" Value="#3D3220" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="CornerRadius" Value="8" />
+      <Setter Property="Padding" Value="12,10" />
+    </Style>
+    <Style Selector="Button.seg">
+      <Setter Property="Background" Value="Transparent" />
+      <Setter Property="Foreground" Value="{StaticResource HelixMuted}" />
+      <Setter Property="BorderBrush" Value="Transparent" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="CornerRadius" Value="7" />
+      <Setter Property="Padding" Value="16,7" />
+      <Setter Property="FontSize" Value="14" />
+      <Setter Property="FontWeight" Value="Medium" />
+      <Setter Property="HorizontalAlignment" Value="Left" />
+      <Setter Property="HorizontalContentAlignment" Value="Center" />
+      <Setter Property="Cursor" Value="Hand" />
+    </Style>
+    <Style Selector="Button.seg:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="#161C22" />
+    </Style>
+    <Style Selector="Button.seg.on">
+      <Setter Property="Background" Value="#163044" />
+      <Setter Property="Foreground" Value="#E8F4FC" />
+      <Setter Property="BorderBrush" Value="#3D9AD1" />
+    </Style>
+    <Style Selector="Button.ghost">
+      <Setter Property="Background" Value="Transparent" />
+      <Setter Property="Foreground" Value="{StaticResource HelixMuted}" />
+      <Setter Property="BorderThickness" Value="0" />
+      <Setter Property="Padding" Value="8,4" />
+      <Setter Property="CornerRadius" Value="8" />
+      <Setter Property="Cursor" Value="Hand" />
+    </Style>
+    <Style Selector="Button.ghost:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="#161C22" />
+    </Style>
+    <Style Selector="Button.link">
+      <Setter Property="Background" Value="Transparent" />
+      <Setter Property="Foreground" Value="{StaticResource HelixAccent}" />
+      <Setter Property="BorderThickness" Value="0" />
+      <Setter Property="Padding" Value="0" />
+      <Setter Property="Cursor" Value="Hand" />
+      <Setter Property="FontSize" Value="12" />
+    </Style>
+    <Style Selector="ComboBox">
+      <Setter Property="Background" Value="#14181D" />
+      <Setter Property="BorderBrush" Value="{StaticResource HelixStroke}" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="CornerRadius" Value="8" />
+      <Setter Property="MinHeight" Value="32" />
+      <Setter Property="FontSize" Value="13" />
+      <Setter Property="Padding" Value="8,4" />
+    </Style>
+    <Style Selector="CheckBox">
+      <Setter Property="FontSize" Value="13" />
+      <Setter Property="Foreground" Value="{StaticResource HelixText}" />
+    </Style>
+  </Application.Styles>
+</Application>

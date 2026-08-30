@@ -2,6 +2,8 @@
 
 A free DualSense / DualSense Edge companion for Windows. One window. Two modes. No subscription.
 
+**Download:** [Helix-win-x64.zip](https://github.com/Aloshi999/helix-dualsense/releases/latest/download/Helix-win-x64.zip) from [Releases](https://github.com/Aloshi999/helix-dualsense/releases/tag/v1.0.0).
+
 Helix talks to the controller over USB HID (Sony VID `054C`, DualSense `0CE6`, Edge `0DF2`). It does not hide or disable the physical device.
 
 **DualSense** — native HID. Games that already support DualSense see the real pad. Helix still drives adaptive triggers, rumble, and the lightbar.
@@ -10,19 +12,16 @@ Helix talks to the controller over USB HID (Sony VID `054C`, DualSense `0CE6`, E
 
 Bluetooth is rumble-only. Adaptive triggers need USB-C.
 
-## Requirements
+## Install
 
-- Windows 10/11 x64
-- DualSense or DualSense Edge over USB-C
-- [ViGEmBus](https://github.com/nefarius/ViGEmBus/releases) if you want Xbox mode (free). Helix runs DualSense mode without it.
+1. Install [ViGEmBus](https://github.com/nefarius/ViGEmBus/releases) (free). Needed for Xbox mode. Helix still runs DualSense mode if ViGEmBus is missing.
+2. Download `Helix-win-x64.zip` from [Releases](https://github.com/Aloshi999/helix-dualsense/releases/tag/v1.0.0) and unzip. Start `Helix.exe`.
+3. Plug in the DualSense Edge over USB-C.
+4. Pick **Xbox** for RDR2 (Rockstar Games Launcher). DualSense mode is native HID — no virtual pad.
 
-No Steam. No DS4Windows. ViGEmBus.sys is not bundled.
+No Steam. No DS4Windows. `ViGEmBus.sys` is not bundled.
 
-## Run
-
-See `INSTALL.txt`. Unzip `Helix-win-x64.zip` and start `Helix.exe`.
-
-Close goes to the tray. The `...` menu has Start with Windows, stick deadzone, the log, and Quit.
+Close goes to the tray. The `···` menu has Start with Windows, stick deadzone, the log, and Quit.
 
 Settings live in `%AppData%\Helix\settings.json`. `Helix.log` is written next to the executable.
 
@@ -31,8 +30,10 @@ Settings live in `%AppData%\Helix\settings.json`. `Helix.log` is written next to
 ```bash
 dotnet restore Helix.sln
 dotnet test Helix.sln
-dotnet publish src/Helix/Helix.csproj -c Release -r win-x64 --self-contained true -o dist/win-x64
+dotnet publish src/Helix/Helix.csproj -c Release -r win-x64 --self-contained -o dist/win-x64
 ```
+
+The tagged `v*` GitHub Actions workflow publishes `Helix-win-x64.zip` (root contains `Helix.exe`) onto the matching Release.
 
 Developed with Avalonia 11 and C# (works on Linux; HID output and ViGEm are for Windows).
 
